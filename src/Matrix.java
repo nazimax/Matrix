@@ -1,4 +1,3 @@
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 /**
@@ -6,21 +5,7 @@ import java.util.ArrayList;
  */
 public class Matrix {
 
-   Matrix format(int n){
-       DecimalFormat df = new DecimalFormat () ;
-       df.setMaximumFractionDigits ( n ) ;
-       df.setMinimumFractionDigits ( n ) ;
-       df.setDecimalSeparatorAlwaysShown ( true ) ;
 
-       for (int i = 0; i <lineLenght ; i++) {
-           for (int j = 0; j < columnLenght; j++) {
-               String x=(String)df.format(this.matrix[i][j]);
-               double y=Double.parseDouble( x);
-               this.matrix[i][j]=y;
-           }
-       }
-    return this;
-   }
 
     private int lineLenght, columnLenght;
     private double[][] matrix;
@@ -36,11 +21,8 @@ public class Matrix {
 
 
     }
-
-    Matrix transosedMatrix(){
-
-
-
+// get transposed of matrix
+    private Matrix transposedMatrix(){
 
         double[][] transposed=new double[columnLenght][lineLenght];
         double []v=new double[lineLenght];
@@ -50,8 +32,8 @@ public class Matrix {
         
         return new Matrix(transposed);
     }
-
-    Matrix productScalairMatrix(double r){
+    // multiply a matrix by a scalar
+    private Matrix productScalairMatrix(double r){
 
         double[][] mat=this.matrix;
         for (int i = 0; i <this.lineLenght ; i++) {
@@ -59,8 +41,6 @@ public class Matrix {
                 mat[i][j]=r*mat[i][j];
             }
         }
-
-
 
         return new Matrix(mat);
     }
@@ -94,20 +74,20 @@ public class Matrix {
         }
         return true;
     }
-
-    boolean productIsPossible(Matrix a, Matrix b) {
+ // verify propreties before multiplying two matrix
+    private boolean productIsPossible(Matrix a, Matrix b) {
         return (a.getColumnLenght() == b.getLineLenght());
 
-
     }
-
-    double scalairProduct(double[] a, double[] b) {
+    
+    private double scalarProduct(double[] a, double[] b) {
         double ps = 0;
         for (int i = 0; i < a.length; i++) {
             ps += a[i] * b[i];
         }
         return ps;
     }
+    
     Matrix identity(int n){
         double i[][]=new double[n][n];
         for (int j = 0; j < n; j++) {
@@ -125,7 +105,7 @@ public class Matrix {
 
         return new Matrix(i);
     }
-
+ // get a column i from a matric
     double[] columnOfMatrix(int index){
     ArrayList<Double>column=new ArrayList<Double>();
         for (int j = 0; j <this.lineLenght ; j++) {
@@ -151,7 +131,7 @@ public class Matrix {
             for (int i = 0; i < this.lineLenght; i++) {
                 for (int j = 0; j <b.columnLenght ; j++) {
 
-                    m[i][j]=scalairProduct(this.matrix[i],b.columnOfMatrix(j));
+                    m[i][j]=scalarProduct(this.matrix[i],b.columnOfMatrix(j));
                    // System.out.println(this.metrix[i]+"X"+b.columnOfMetrix(j));
                 }
 
@@ -160,6 +140,17 @@ public class Matrix {
 
     return new Matrix(m);
     }
+
+    Matrix correlationMatrix(){
+        Matrix m1=this;
+        double r= (double)1/m1.lineLenght;
+        Matrix m2=m1.transposedMatrix();
+        Matrix m3 = m2.productTwoMatrix(m1);
+
+
+        return m3.productScalairMatrix(r);
+    }
+
 
     @Override
     public String toString() {
@@ -171,14 +162,5 @@ public class Matrix {
             affich+="\n";
         }
         return affich;
-    }
-    Matrix correlationMatrix(){
-        Matrix m1=this;
-        double r= (double)1/m1.lineLenght;
-        Matrix m2=m1.transosedMatrix();
-        Matrix m3 = m2.productTwoMatrix(m1);
-
-
-        return m3.productScalairMatrix(r);
     }
 }

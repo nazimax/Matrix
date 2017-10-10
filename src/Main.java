@@ -17,20 +17,8 @@ public class Main {
                 {-0.1975, -0.1115, 0.6559, 0.7223, 2.3778}};
 
         Matrix m1 = new Matrix(a);
-        //Matrix m2 = m1.transosedMatrix();
-        //Matrix m3 = m2.productTwoMatrix(m1);
-
-        //double[][] v = {{1, 2, 3, 4}, {5, 6, 7, 8}};
-        //Matrix m6 = new Matrix(v);
-        //double r = (double) 1 / 9;
-        //Matrix m4=m3.productScalairMatrix(r);
         System.out.println(m1.correlationMatrix());
 
-        //System.out.println(m4.format(4));
-        //m2=m1.productTwoMetrix(m1);
-        //System.out.println(m2.productTwoMetrix(m1));
-        //System.out.println(m1.identity(10));
+
     }
-
-
 }
