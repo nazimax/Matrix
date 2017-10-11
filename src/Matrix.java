@@ -21,7 +21,66 @@ public class Matrix {
 
 
     }
+
+    double columnMoy(double[] col){
+        double moy=0;
+
+        for (int i = 0; i <col.length ; i++) {
+            moy+=col[i];
+        }
+        return moy/col.length;
+    }
+    Matrix centredMatrix(){
+        double[][] m= this.matrix;
+        double[] tempCol;
+        double moy;
+        for (int i = 0; i < this.columnLenght ; i++) {
+            tempCol=this.columnOfMatrix(i);
+            moy=columnMoy(tempCol);
+            for (int j = 0; j <tempCol.length ; j++) {
+                tempCol[j]=tempCol[j]-moy;
+            }
+            this.setColumnOfMatrix(i,tempCol);
+
+        }
+
+
+        return this;
+    }
+
+
+    Matrix reduceCentredMatrix(){
+        double variance,sigma;
+
+        for (int i = 0; i <this.columnLenght ; i++) {
+            variance=varianceOfColumn(this.columnOfMatrix(i));
+            sigma=Math.sqrt(variance);
+            double[] col;
+            col=this.columnOfMatrix(i);
+            for (int j = 0; j <this.lineLenght ; j++) {
+                col[j]=col[j]/sigma;
+            }
+            this.setColumnOfMatrix(i,col);
+        }
+
+        return this;
+    }
+
+    double varianceOfColumn(double[] col){
+
+        double v=0;
+        for (int i = 0; i <col.length ; i++) {
+            v+=Math.pow(col[i],2);
+        }
+
+        return v/col.length;
+    }
+
+
 // get transposed of matrix
+
+
+
     private Matrix transposedMatrix(){
 
         double[][] transposed=new double[columnLenght][lineLenght];
@@ -105,6 +164,16 @@ public class Matrix {
 
         return new Matrix(i);
     }
+
+
+    void setColumnOfMatrix(int index,double[] column){
+        double mat[][]=this.matrix;
+        for (int i = 0; i < this.lineLenght ; i++) {
+            mat[i][index]=column[i];
+        }
+        this.matrix=mat;
+
+    }
  // get a column i from a matric
     double[] columnOfMatrix(int index){
     ArrayList<Double>column=new ArrayList<Double>();
@@ -141,7 +210,7 @@ public class Matrix {
     return new Matrix(m);
     }
 
-    Matrix correlationMatrix(){
+    Matrix correlationOfReducedMatrix(){
         Matrix m1=this;
         double r= (double)1/m1.lineLenght;
         Matrix m2=m1.transposedMatrix();
@@ -150,6 +219,15 @@ public class Matrix {
 
         return m3.productScalairMatrix(r);
     }
+
+    Matrix correlationMatrix(){
+        Matrix m1=this.centredMatrix();
+        m1=m1.reduceCentredMatrix();
+
+
+        return m1;
+    }
+
 
 
     @Override

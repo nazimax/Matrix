@@ -16,9 +16,29 @@ public class Main {
                 {0.9877, 0.8916, -0.4959, -0.1806, 0.3397},
                 {-0.1975, -0.1115, 0.6559, 0.7223, 2.3778}};
 
-        Matrix m1 = new Matrix(a);
-        System.out.println(m1.correlationMatrix());
 
+        double[][] b = {
+                {6,6,5,5.5,8},
+                {8,8,8,8,9},
+                {6,7,11,9.5,11},
+                {14.5,14.5,15.5,15,8},
+                {14,14,12,12,10},
+                {11,10,5.5,7,13},
+                {5.5,7,14,11.5,10},
+                {13,12.5,8.5,9.5,12},
+                {9,9.5,12.5,12,18},
+        };
+
+
+
+
+
+        Matrix m1 = new Matrix(b);
+
+
+        System.out.println((m1.centredMatrix()).reduceCentredMatrix());
+
+        System.out.println(((m1.centredMatrix()).reduceCentredMatrix()).correlationOfReducedMatrix());
 
     }
 }
