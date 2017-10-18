@@ -285,20 +285,49 @@ public class Matrix {
     
         return new Matrix(m);
     }
-    Matrix individualContribution(double[][]factors, double ...eigenValu){
-        double[][]factor=new double[lineLenght][factors[0].length];
+    Matrix individualContribution(Matrix factors, double ...eigenValu){
+        double[][]factor=factors.matrix;
         int j=-1;
         for (double valu : eigenValu){
             double n=lineLenght*valu;
             j++;
             for (int i = 0; i <lineLenght ; i++) {
-                factor[i][j]=(Math.pow(factors[i][j],2)/n)*100;
+                factor[i][j]=(Math.pow(factors.matrix[i][j],2)/n)*100;
             }
 
         }
 
         return new Matrix(factor);
     }
+
+    double someSquerVector(double[] v){
+        double rs=0;
+        for (int i = 0; i <v.length ; i++) {
+            rs+=Math.pow(v[i],2);
+        }
+        return rs;
+    }
+    Matrix qualityOfRepresentation(Matrix factors){
+            double[][]quality=new double[factors.matrix.length][factors.matrix[0].length];
+
+        double val;
+        for (int i = 0; i <quality.length ; i++) {
+
+            val=0;
+            for (int j = 0; j <quality[0].length ; j++) {
+                quality[i][j]=Math.pow(factors.matrix[i][j],2)/someSquerVector(factors.matrix[i]);
+            }
+
+
+        }
+
+
+
+
+        return new Matrix(quality);
+    }
+
+
     @Override
     public String toString() {
         String affich="";

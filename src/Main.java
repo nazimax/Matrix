@@ -41,8 +41,9 @@ public class Main {
 
         Matrix m1 = new Matrix(b);
         Matrix m5=((m1.centredMatrix()).reduceCentredMatrix());
-        Matrix m6 = m5.fatcor(v1,v2,v3);
-        System.out.println(m6.individualContribution(m6.getMatrix(),lamda1,lamda2,lamda3));
+        Matrix m6 = m5.fatcor(v1,v2,v3,v4,v5);
+        Matrix m7=new Matrix();
+        System.out.println(m6.qualityOfRepresentation(m6)  /*.individualContribution(m6,lamda1,lamda2,lamda3,lamda4,lamda5)*/);
 
     }
 }
