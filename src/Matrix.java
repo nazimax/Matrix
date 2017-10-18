@@ -348,6 +348,23 @@ public class Matrix {
         }
         return new Matrix(matCoord);
     }
+    Matrix contributionOfVariables(Matrix m,double ...eigenValu){
+        double[][] coordFactorial = new double[m.matrix.length][m.matrix[0].length];
+
+        int j=-1;
+        for (double valu:eigenValu){
+            j++;
+            for (int i = 0; i <coordFactorial.length ; i++) {
+                coordFactorial[i][j]=Math.pow(m.matrix[i][j],2)/valu;
+            }
+        }
+
+
+
+        return new Matrix(coordFactorial);
+    }
+
+
     @Override
     public String toString() {
         String affich = "";
