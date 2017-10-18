@@ -39,11 +39,22 @@ public class Main {
 
 
 
+
         Matrix m1 = new Matrix(b);
         Matrix m5=((m1.centredMatrix()).reduceCentredMatrix());
+
+        System.out.println("======================REDUCED CENTRED MATRIX=========================\n\n "+m5);
+        System.out.println("======================VAR CORRELATION MATRIX=========================\n\n"+((m1.centredMatrix()).reduceCentredMatrix()).varCorrelationOfReducedMatrix());
         Matrix m6 = m5.fatcor(v1,v2,v3,v4,v5);
-        Matrix m7=new Matrix();
-        System.out.println(m6.qualityOfRepresentation(m6)  /*.individualContribution(m6,lamda1,lamda2,lamda3,lamda4,lamda5)*/);
+
+        System.out.println("======================NEW COORD WITH EIGEN VECTORS =========================\n\n"+m6);
+        Matrix m7=m6;
+        //System.out.println("======================INDIVIDUAL CONTRIBUTION =========================\n\n"+m7.individualContribution(m7,lamda1,lamda2,lamda3));
+
+
+        System.out.println("======================QUALITY OF REPRESENTATION =========================\n\n"+m6.qualityOfRepresentation(m6));
+
+        System.out.println("======================FACTORIAL COORD OF VARIABLES =========================\n\n"+m6.coordFactorielOfVariable(m5,m6,lamda1,lamda2,lamda3));
 
     }
 }
