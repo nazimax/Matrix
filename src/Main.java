@@ -29,16 +29,20 @@ public class Main {
                 {9,9.5,12.5,12,18},
         };
 
-
+        double lamda1=2.8618, lamda2=1.15069, lamda3=0.983141,lamda4=0.00393846, lamda5= 0.000429702;
+        double[]
+                v1={-0.47639,-0.530244,-0.448126,-0.538074,-0.0394148},
+                v2={-0.532636,-0.401597,0.569632,0.370555,0.305332},
+                v3={0.154761,0.0936449,-0.227638,-0.109345,0.950528},
+                v4={0.303163,-0.516953,-0.477369,0.641445,-0.0389643},
+                v5={0.61114,-0.530613,0.441591,-0.386986,0.01401};
 
 
 
         Matrix m1 = new Matrix(b);
-
-
-        System.out.println((m1.centredMatrix()).reduceCentredMatrix());
-
-        System.out.println(((m1.centredMatrix()).reduceCentredMatrix()).correlationOfReducedMatrix());
+        Matrix m5=((m1.centredMatrix()).reduceCentredMatrix());
+        Matrix m6 = m5.fatcor(v1,v2,v3);
+        System.out.println(m6.individualContribution(m6.getMatrix(),lamda1,lamda2,lamda3));
 
     }
 }

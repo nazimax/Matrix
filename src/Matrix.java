@@ -11,6 +11,19 @@ public class Matrix {
     private double[][] matrix;
 
 
+    public Matrix(){
+    
+
+    }
+
+    public double[][] getMatrix() {
+        return matrix;
+    }
+
+    public void setMatrix(double[][] matrix) {
+        this.matrix = matrix;
+    }
+
     public Matrix(double[][] M) {
 
         matrix = M;
@@ -210,7 +223,8 @@ public class Matrix {
     return new Matrix(m);
     }
 
-    Matrix correlationOfReducedMatrix(){
+    Matrix varCorrelationOfReducedMatrix(){
+
         Matrix m1=this;
         double r= (double)1/m1.lineLenght;
         Matrix m2=m1.transposedMatrix();
@@ -218,6 +232,19 @@ public class Matrix {
 
 
         return m3.productScalairMatrix(r);
+    }
+    
+    
+
+    Matrix individuCorrelationOfReducedMatrix(){
+
+        Matrix m1=this;
+        //double r= (double)1/m1.lineLenght;
+        Matrix m2=m1.transposedMatrix();
+        Matrix m3 = m1.productTwoMatrix(m2);
+
+
+        return m3;//.productScalairMatrix(r);
     }
 
     Matrix correlationMatrix(){
@@ -229,7 +256,49 @@ public class Matrix {
     }
 
 
+    double productMatrixByVector(int lineNumber,double vector[]){
+        double[][] mat=this.matrix;
+        double rs=0;
+        for (int i = 0; i <columnLenght ; i++) {
+            rs+=mat[lineNumber][i]*vector[i];
 
+        }
+        return -rs;
+    }
+
+
+    
+
+    Matrix fatcor(double[]...v){
+
+
+        double m[][] = new double[lineLenght][v.length];
+
+        int j=-1;
+        for (double[]vector: v) {
+            j++;
+            for (int i = 0; i <lineLenght ; i++) {
+                m[i][j]=this.productMatrixByVector(i,vector);
+            }
+        }
+    
+    
+        return new Matrix(m);
+    }
+    Matrix individualContribution(double[][]factors, double ...eigenValu){
+        double[][]factor=new double[lineLenght][factors[0].length];
+        int j=-1;
+        for (double valu : eigenValu){
+            double n=lineLenght*valu;
+            j++;
+            for (int i = 0; i <lineLenght ; i++) {
+                factor[i][j]=(Math.pow(factors[i][j],2)/n)*100;
+            }
+
+        }
+
+        return new Matrix(factor);
+    }
     @Override
     public String toString() {
         String affich="";
