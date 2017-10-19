@@ -71,21 +71,25 @@ public class Main {
         PrintWriter writer = new PrintWriter("corrMatrix", "UTF-8");
         writer.println(((m1.centredMatrix()).reduceCentredMatrix()).varCorrelationOfReducedMatrix().pythonFormat());
         writer.close();
+        Parser p =new Parser();
+        for (int i = 0; i <5 ; i++) {
 
-
-
-        try {
-
-            // run the Unix "ps -ef" command
-            // using the Runtime exec method:
-            Process p = Runtime.getRuntime().exec("python "+current+"/src/app.py");
-
-}
-        catch (IOException e) {
-            System.out.println("exception happened - here's what I know: ");
-            e.printStackTrace();
-            System.exit(-1);
+            System.out.println((p.eigenValues(5))[i]);
         }
+
+
+//        try {
+//
+//            // run the Unix "ps -ef" command
+//            // using the Runtime exec method:
+//            Process p = Runtime.getRuntime().exec("python "+current+"/src/app.py");
+//
+//}
+//        catch (IOException e) {
+//            System.out.println("exception happened - here's what I know: ");
+//            e.printStackTrace();
+//            System.exit(-1);
+//        }
 
 
 

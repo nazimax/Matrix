@@ -18,10 +18,13 @@ eigVec = open("./eigenVectors", "w")
 
 for i in eigenvalue:
 
-    eigVal.write(str('{:f}'.format(i))+";")
+    eigVal.write(str('{:f}'.format(i))+"\n")
 
 
-eigVec.write(str(eigenvector))
+
+for j in eigenvector:
+    eigVec.write(str(j)+"\n")
+
 
 corr.close()
 eigVal.close()

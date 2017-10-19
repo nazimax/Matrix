@@ -21,7 +21,10 @@ for i in eigenvalue:
     eigVal.write(str('{:f}'.format(i))+";")
 
 
-eigVec.write(str(eigenvector))
+
+for j in eigenvector:
+    eigVec.write(str(j)+"\n")
+
 
 corr.close()
 eigVal.close()
