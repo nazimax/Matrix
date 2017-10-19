@@ -364,6 +364,44 @@ public class Matrix {
         return new Matrix(coordFactorial);
     }
 
+    Matrix qualityOfVariables(Matrix factors) {
+        double[][] quality = new double[factors.matrix.length][factors.matrix[0].length];
+
+        double val;
+        for (int i = 0; i < quality.length; i++) {
+
+            val = 0;
+            for (int j = 0; j < quality[0].length; j++) {
+                quality[i][j] = Math.pow(factors.matrix[i][j], 2) / someSquerVector(factors.matrix[i]);
+            }
+
+
+        }
+
+        return new Matrix(quality);
+    }
+
+    double[] somOfTwoColumns(double v1[],double v2[]){
+
+        double[]result=new double[v1.length];
+
+        for (int i = 0; i <v1.length ; i++) {
+            result[i]=v1[i]+v2[i];
+        }
+
+
+        return result;
+    }
+
+
+
+    double[][] setCol(double[][] m,int index,double[] col){
+        Matrix m1=new Matrix();
+        m1.matrix=m;
+        m1.setColumnOfMatrix(index,col);
+        return m1.matrix;
+
+    }
 
     @Override
     public String toString() {
@@ -376,4 +414,19 @@ public class Matrix {
         }
         return affich;
     }
+    String pythonFormat(){
+        double[][] matrix=this.matrix;
+        String affich = "";
+        for (int i = 0; i < this.lineLenght; i++) {
+            for (int j = 0; j < this.columnLenght; j++) {
+                affich += matrix[i][j] + " ";
+            }
+            if(i<this.lineLenght-1)
+                affich += ";";
+        }
+        return affich;
+
+    }
+
+
 }
